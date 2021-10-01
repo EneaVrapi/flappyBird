@@ -29,11 +29,11 @@ tubiPoshte.src='https://raw.githubusercontent.com/sil-sin/flappy-bird-starter/ma
 let piket=0,renja=2
 
 document.addEventListener('mousedown',function(){
-    renja = -7
+    renja = 0
 })
 
 document.addEventListener('mouseup',function(){
-    renja = 2
+    renja = 0
 })
 
 let tubat = [{x:canvas.width-40,y:0}]
@@ -59,7 +59,16 @@ for (let i = 0 ; i < tubat.length ; i++){
             y:Math.floor(Math.random()* tubiLarte.height)-tubiLarte.height
         })
     }
+
+    if(zoguX + zogu.width > tubat[i].x && zoguX < tubat[i].x + tubiLarte.width && (zoguY < tubat[i].y + tubiLarte.height || zoguY + zogu.height > tubat[i].y + hapsire )){
+        alert('GAMEOVER')
+        clearInterval(intervalId)
+        location.reload()
+    }else{
+        zoguY = zoguY + renja
+    }
 }
+
 
 ctx.drawImage(toka,0,canvas.height-80)
 
@@ -71,7 +80,7 @@ if(zoguY > canvas.height -100){
     zoguY += renja
 }
 
-ctx.font='20px Calibri'
+ctx.font='20px Calibri'//madhesia dhe lloi i shkrimit font
 ctx.fillStyle='red'
 ctx.fillText('Pike: '+piket,20,canvas.height-30)
 
@@ -83,3 +92,22 @@ console.log('U vizatua sfondi')
 intervalId = setInterval(() => {
     requestAnimationFrame(vizato)
 }, 10);
+
+let muzik = new Audio()
+muzik.src="https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3"
+
+let button = document.querySelector("button");
+button.style.color = "red";
+button.addEventListener("click", (e) => {
+  if (button.innerText == "On") {
+    button.innerText = "Off";
+    button.style.color = "red";
+    muzik.pause();
+    audio.ended = true;
+  } else if (button.innerText == "Off") {
+    button.innerText = "On";
+    button.style.color = "green";
+    muzik.play();
+  }
+});
+
